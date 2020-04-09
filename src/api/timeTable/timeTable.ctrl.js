@@ -47,13 +47,13 @@ exports.setTimeTable = async (req, res) => {
      * 교시
      */
     _class: Joi.number().integer().min(0).max(6).required(),
-    subject: Joi.string().required(),
-    teacher: Joi.string().required(),
-    chapter: Joi.string().required(),
-    topic: Joi.string().required(),
-    description: Joi.string().required(),
-    zoom_id: Joi.string().required(),
-    classroom: Joi.string().required(),
+    subject: Joi.string().required().allow(null),
+    teacher: Joi.string().required().allow(null),
+    chapter: Joi.string().required().allow(null),
+    topic: Joi.string().required().allow(null),
+    description: Joi.string().required().allow(null),
+    zoom_id: Joi.string().required().allow(null),
+    classroom: Joi.string().required().allow(null),
   });
 
   if (!validate(req, res, schema)) return;
