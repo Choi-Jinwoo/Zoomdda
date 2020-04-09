@@ -1,4 +1,8 @@
+require('dotenv').config();
+
 const Joi = require('joi');
+const fs = require('fs');
+const path = require('path');
 const validate = require('../../lib/validate');
 
 exports.getTimeTable = async (req, res) => {
@@ -21,4 +25,60 @@ exports.getTimeTable = async (req, res) => {
       "time_table": fileData
     }
   });
-}
+};
+
+exports.setTimeTable = async (req, res) => {
+  const { access_code } = req.headers
+  const { body } = req;
+
+  if (access_code !== process.env.ACCESS_CODE) {
+    res.status(401).json({
+      message: '인증 되지 않음',
+    });
+    return;
+  }
+
+  const schema = Joi.object().keys({
+    grade: Joi.number().integer().min(1).max(3).required(),
+    room: Joi.number().integer().min(1).max(3).required(),
+    day: Joi.string().required(),
+    /**
+     * 교시
+     */
+    _class: Joi.number().integer().min(0).max(6).required(),
+    subject: Joi.string().required(),
+    teacher: Joi.string().required(),
+    chapter: Joi.string().required(),
+    topic: Joi.string().required(),
+    description: Joi.string().required(),
+    zoom_id: Joi.string().required(),
+    classroom: Joi.string().required(),
+  });
+
+  if (!validate(req, res, schema)) return;
+
+  const fileName = `${body.grade}-${body.room}.json`
+  const fileData = require(`../../../data/${fileName}`)
+
+  fileData[body.day][body._class] = {
+    SUBJECT: body.subject,
+    TEACHER: body.teacher,
+    CHAPTER: body.chapter,
+    TOPIC: body.topic,
+    DESCRIPTION: body.description,
+    ZOOM_ID: body.zoom_id,
+    CLASSROOM: body.classroom,
+  }
+
+  try {
+    await fs.writeFileSync(path.join(__dirname, `../../../data/${fileName}`), JSON.stringify(fileData));
+    res.status(200).json({
+      message: '시간표 변경 성공'
+    })
+  } catch (err) {
+    console.log('서버 오류.', err.message);
+    res.status(500).json({
+      message: '서버 오류',
+    })
+  }
+};
