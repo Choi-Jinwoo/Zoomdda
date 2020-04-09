@@ -5,7 +5,7 @@ module.exports = (req, res, schema) => {
   const validation = Joi.validate(body, schema);
 
   if (validation.error) {
-    console.log('검증 오류', validation.error)
+    console.log('검증 오류', validation.error.message)
     res.status(400).json({
       message: '검증 오류.',
     });

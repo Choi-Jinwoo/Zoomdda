@@ -8,13 +8,14 @@ const validate = require('../../lib/validate');
 exports.getTimeTable = async (req, res) => {
   const { grade, room } = req.query;
 
-  if (isNaN(grade) || isNaN(room)) {
+  if (isNaN(grade) || isNaN(room) || grade > 3 || grade < 1 || room > 3 || room < 1) {
     console.log('검증 오류', 'grade, room is nan');
     res.status(400).json({
       message: '검증 오류',
     });
     return;
   }
+
 
   const fileName = `${grade}-${room}.json`
   const fileData = require(`../../../data/${fileName}`)
