@@ -62,13 +62,13 @@ exports.setTimeTable = async (req, res) => {
   const fileData = require(`../../../data/${fileName}`)
 
   fileData[body.day][body._class] = {
-    SUBJECT: body.subject,
-    TEACHER: body.teacher,
-    CHAPTER: body.chapter,
-    TOPIC: body.topic,
-    DESCRIPTION: body.description,
-    ZOOM_ID: body.zoom_id,
-    CLASSROOM: body.classroom,
+    SUBJECT: body.subject || "",
+    TEACHER: body.teacher || "",
+    CHAPTER: body.chapter || "",
+    TOPIC: body.topic || "",
+    DESCRIPTION: body.description || "",
+    ZOOM_ID: body.zoom_id || "",
+    CLASSROOM: body.classroom || "",
   }
 
   try {
