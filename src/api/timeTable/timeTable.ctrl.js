@@ -4,6 +4,7 @@ const Joi = require('joi');
 const fs = require('fs');
 const path = require('path');
 const validate = require('../../lib/validate');
+const DayEnum = require('../../enum/DayEnum');
 
 exports.getTimeTable = async (req, res) => {
   const { grade, room } = req.query;
@@ -56,7 +57,14 @@ exports.setTimeTable = async (req, res) => {
     classroom: Joi.string().required().allow(null),
   });
 
+  // Validate
   if (!validate(req, res, schema)) return;
+  if (DayEnum.indexOf(body.day) === -1) {
+    res.status(400).json({
+      message: '검증 오류.',
+    });
+    return;
+  }
 
   const fileName = `${body.grade}-${body.room}.json`
   const fileData = require(`../../../data/${fileName}`)
