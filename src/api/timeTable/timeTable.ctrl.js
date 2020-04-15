@@ -1,5 +1,4 @@
 const models = require('../../models');
-const schools = require('../../../config/school.json');
 const getSchoolByIdx = require('../../lib/getSchoolByIdx');
 const Joi = require('joi');
 const validate = require('../../lib/validate');
