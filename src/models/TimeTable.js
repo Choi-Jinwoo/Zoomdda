@@ -6,7 +6,15 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    school_id: {
+    school_idx: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    room: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

@@ -19,20 +19,20 @@ module.exports = async (req, res, next) => {
       case 'invalid signature':
         res.status(401).json({
           status: 401,
-          message: '위조된 토큰입니다.',
+          message: '토큰 인증 실패',
         });
         return;
       case 'jwt expired':
         res.status(410).json({
           status: 410,
-          message: '토큰이 만료되었습니다.',
+          message: '토큰 만료',
         });
         return;
       default:
         console.log('서버 오류', err.message);
         return res.status(500).json({
           status: 500,
-          message: '다시 시도해 주세요.',
+          message: '서버 오류',
         });
     }
   }

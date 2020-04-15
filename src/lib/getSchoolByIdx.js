@@ -8,5 +8,5 @@ module.exports = (schoolIdx) => {
   const index = schoolsIdxMap.indexOf(Number(schoolIdx));
   if (index === -1) return null;
 
-  return school[index];
+  return schools[index];
 };
