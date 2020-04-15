@@ -1,7 +1,9 @@
 const router = require('express').Router();
 
-const timeTable = require('./timeTable');
+const auth = require('./auth');
+// const timeTable = require('./timeTable');
 
-router.use('/time-table', timeTable);
+router.use('/auth', auth);
+// router.use('/time-table', timeTable);
 
 module.exports = router;
