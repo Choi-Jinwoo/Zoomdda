@@ -49,10 +49,23 @@ exports.getTimeTable = async (req, res) => {
       raw: true,
     });
 
+    const result = [];
+    let timeTableIdx = 0;
+    for (let i = 0; i < 6; i += 1) {
+      for (let j = 1; j <= 7; j += 1) {
+        if (timeTable[timeTableIdx] && timeTable[timeTableIdx].day === i && timeTable[timeTableIdx]._class === j) {
+          result.push(timeTable[timeTableIdx]);
+          timeTableIdx += 1;
+        } else {
+          result.push(null);
+        }
+      }
+    }
+
     res.status(200).json({
       message: '시간표 조회 성공',
       data: {
-        time_table: timeTable,
+        time_table: result,
       },
     });
   } catch (err) {
