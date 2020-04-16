@@ -85,7 +85,7 @@ exports.setTimeTable = async (req, res) => {
     school_idx: Joi.number().integer().required(),
     grade: Joi.number().integer().min(1).required(),
     room: Joi.number().integer().min(1).required(),
-    day: Joi.number().min(0).max(6).required(),
+    day: Joi.number().min(0).max(4).required(),
     /**
      * 교시
      */
@@ -157,7 +157,11 @@ exports.setTimeTable = async (req, res) => {
         classroom_url: body.classroom_url,
       };
 
-      await models.TimeTable.update(timeTable.idx, data);
+      await models.TimeTable.update(data, {
+        where: {
+          idx: timeTable.idx,
+        },
+      });
     } else {
       await models.TimeTable.create(body);
     }
