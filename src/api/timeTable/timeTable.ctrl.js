@@ -57,7 +57,7 @@ exports.getTimeTable = async (req, res) => {
           result.push(timeTable[timeTableIdx]);
           timeTableIdx += 1;
         } else {
-          result.push(null);
+          result.push({});
         }
       }
     }
