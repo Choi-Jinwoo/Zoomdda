@@ -18,7 +18,7 @@ exports.getTimeTable = async (req, res) => {
   }
 
   // 해당 학년이 존재하는지 확인
-  if (!school.CALSS_INFO[grade]) {
+  if (!school.CLASS_INFO[grade]) {
     console.log('등록되지 않은 학반');
     res.status(404).json({
       message: '등록되지 않은 학반.'
@@ -27,7 +27,7 @@ exports.getTimeTable = async (req, res) => {
   }
 
   // 해당 반이 존재하는지 확인
-  if (school.CALSS_INFO[grade].indexOf(room) === -1) {
+  if (school.CLASS_INFO[grade].indexOf(room) === -1) {
     console.log('등록되지 않은 학반');
     res.status(404).json({
       message: '등록되지 않은 학반.'
@@ -106,7 +106,7 @@ exports.setTimeTable = async (req, res) => {
   }
 
   // 해당 학년이 존재하는지 확인
-  if (!school.CALSS_INFO[body.grade]) {
+  if (!school.CLASS_INFO[body.grade]) {
     console.log('등록되지 않은 학반');
     res.status(404).json({
       message: '등록되지 않은 학반.'
@@ -115,7 +115,7 @@ exports.setTimeTable = async (req, res) => {
   }
 
   // 해당 반이 존재하는지 확인
-  if (school.CALSS_INFO[body.grade].indexOf(body.room) === -1) {
+  if (school.CLASS_INFO[body.grade].indexOf(body.room) === -1) {
     console.log('등록되지 않은 학반');
     res.status(404).json({
       message: '등록되지 않은 학반.'
