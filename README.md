@@ -23,3 +23,5 @@
 ### 팀원
 - 백엔드 : [최진우](https://github.com/Choi-Jinwoo)
 - 프론트엔드 : [차승호](https://github.com/Sh031224)
+
+[관련 글](http://blog.wlswoo.com/15)
